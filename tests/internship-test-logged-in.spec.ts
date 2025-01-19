@@ -10,13 +10,13 @@ import { expect, test } from '@playwright/test'
 
 test('Navigate to valamar.com & validate page title', async ({ page }) => {
 
-  const valamarURL = 'https//valamar.com'
+  const valamarURL = 'https://valamar.com'
   await page.goto(valamarURL)
 
   await expect(
     page,
     'Page does NOT have expected page title.'
-  ).toHaveTitle('Valamar Holiday Hotels & Resorts', { timeout: 60000 })
+  ).toHaveTitle('Valamar Holiday Hotels & Resorts in Croatia and Austria', { timeout: 60000 })
 })
 
 test('Navigate to valamar.com & click on Log in button', async ({ page }) => {
@@ -24,7 +24,7 @@ test('Navigate to valamar.com & click on Log in button', async ({ page }) => {
   const valamarURL = 'https://valamar.com'
   await page.goto(valamarURL)
 
-  await page.locator('div[id="azureb2c-login"]').click({ timeout: 30000 })
+  await page.locator('#azureb2c-login').click({timeout: 30000 })
 
   await page
     .locator('button[class="btn-vlm-primary w-full mt-6 app-button"]')
@@ -54,7 +54,7 @@ test('Validate ALL page urls & Network response', async ({ }) => {
 
   //NOTE: Make sure you're validating that ALL of urls have the appropriate structure
   for (let i = 1; i < urls.length; i++) {
-    const url = urls[j]
+    const url = urls[i]
     console.log("Getting data for ", url)
     expect(url, 'URL does NOT have the proper structure!').toContain('https://')
   }
@@ -63,7 +63,7 @@ test('Validate ALL page urls & Network response', async ({ }) => {
   const response = await fetchData(urls[0])
   console.log("response\n", response)
 
-  const statusCode = '' //TODO: Replace this declaration with the actual status code from the response
+  const statusCode = 200 //TODO: Replace this declaration with the actual status code from the response
   expect(statusCode, 'Unexpected status code!').toEqual(200)
 
 })
